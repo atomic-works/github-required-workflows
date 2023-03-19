@@ -1,0 +1,15 @@
+name: Valid Target Branch
+
+on:
+  pull_request:
+    types: [opened, reopened, edited]
+  pull_request_target:
+    branches: [test, production]
+
+jobs:
+  Valid-Target-Branch :
+    runs-on: ${{ vars.UBUNTU_VERSION }}
+    steps:
+    - if: (github.base_ref == 'production' && github.head_ref != 'test') || (github.base_ref == 'test' && github.head_ref != 'development')
+      name: 'Invalid PR Target Branch'
+      run: exit 1
