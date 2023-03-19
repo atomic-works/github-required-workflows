@@ -10,7 +10,7 @@ jobs:
   Valid-Target-Branch :
     runs-on: ${{ vars.UBUNTU_VERSION }}
     steps:
-    - if: (github.base_ref == 'production' && github.head_ref == 'test') || (github.base_ref == 'test' && github.head_ref == 'development')
+    - if: (github.base_ref == 'production' && github.head_ref == 'test')! && (github.base_ref == 'test' && github.head_ref == 'development')!
       name: 'Valid PR Target Branch'
       run: exit 0
     - if: (github.base_ref == 'production' && github.head_ref != 'test') || (github.base_ref == 'test' && github.head_ref != 'development')
